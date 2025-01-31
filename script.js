@@ -96,3 +96,58 @@ function changerMot(liste,mot){
         changerMot(liste,mot);
     }
 }
+
+let motsSaisies = [] ; 
+
+//fait saisir une seul personne le mot 
+function saisirMot(index){
+    let word = prompt(`Entrez mot pour faire deviner le joueur:`);
+    motsSaisies[index]= word;
+    //for testing purposes
+    console.log("Your words:", motsSaisies);
+}
+
+//faire saisir tout le monde les mots 
+function saisirMotToutLeMonde(){
+    for (let i = 0; i < 4; i++) {
+        let word = prompt(`Entrez mot joueur ${i + 1}:`);
+        motsSaisies[i]= word;
+    }
+    //for testing purposes
+console.log("Your words:", motsSaisies);
+}
+
+// returns 1 if they are identical and 0 if they are different
+function comparePairMot(word1, word2) {
+    return word1.toLowerCase() === word2.toLowerCase();
+}
+
+// filtre les mots identiques
+function compareMots(words) {
+    let uniqueWords = [];
+    for (let i = 0; i < words.length; i++) {
+        let isDuplicate = false;
+        for (let j = 0; j < uniqueWords.length; j++) {
+            if (comparePairMot(words[i], uniqueWords[j])) {
+                isDuplicate = true;
+                break;
+            }
+        }
+        if (!isDuplicate && words[i].trim() !== "") {
+            uniqueWords.push(words[i]);
+        }
+    }
+    return uniqueWords;
+}
+
+// check si la liste de mots filtrés est vide
+function canceled(words) {
+    let filteredWords = compareMots(words);
+    if (filteredWords.length === 0) {
+        console.log("Liste de mots filtrés est vide");
+        //Si oui replace la carte dans le paquet et va a la endPhase A FAIRE 
+        return true;
+    }
+    return false;
+    
+}
