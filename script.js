@@ -176,3 +176,19 @@ function testDernierTour(cartes,cartes_gain){
         }
     }
 }
+
+//choisirJoueurTourSuivant : Choisit le joueur a la gauche de celui choisit par choisirJoueur
+//based on current guesser chooses the guesser in the next game
+function choisirJoueurTourSuivant(currentJouer){
+    return ((currentJouer+1)%5);
+}
+// teste si le paquet de 13 cartes est vide pour continuer le jeu ou non
+//returns true if on a fini le jeu false if not
+function finJeu(paquet){
+    if (paquet.length === 0){
+        console.log("Vous avez terminé le jeu");
+        return true;
+    }
+    console.log("The game must go on! Next round");
+    return false;
+}
