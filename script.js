@@ -60,9 +60,39 @@ const motsFrancais = [
     "place", "statue", "fontaine", "pont", "gare"
 ];
 
-const listesMots = Array.from({ length: 150 }, () =>
+const cartes = Array.from({ length: 150 }, () =>
     Array.from({ length: 5 }, () => motsFrancais[Math.floor(Math.random() * motsFrancais.length)])
-);
+)
 
-console.log(listesMots);
+function choisirCartes(liste, nombre) {
+    return liste.sort(() => Math.random() - 0.5).slice(0, nombre);
+}
 
+
+let cartes_en_jeu = choisirCartes(cartes, 13);
+let cartes_gagne = [];
+let joueurs = ["J1", "J2", "J3", "J4", "J5"];
+
+
+function choisirJoueur(liste){
+    return liste[Math.floor(Math.random() * liste.length)];
+}
+
+function choisirCartesJoueur(liste) {
+    if (liste.length === 0) return null; // Vérifie si la liste est vide
+    const index = Math.floor(Math.random() * liste.length); // Choisit un index aléatoire
+    return liste.splice(index, 1)[0]; // Supprime l'élément et le retourne en cdc
+}
+
+function choisirMot(liste){
+    const index = Math.floor(Math.random() * liste.length); // Choisit un index aléatoire
+    return liste[index] // Supprime l'élément et le retourne en cdc 
+}
+
+function changerMot(liste,mot){
+    const index = Math.floor(Math.random() * liste.length);
+    autre_mot = liste[index];
+    if(autre_mot === mot){
+        changerMot(liste,mot);
+    }
+}
