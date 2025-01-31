@@ -17,6 +17,8 @@
 
 //CompareMots : Prend 4 mots et retourne les mots sans identical et invalid clues
 
+//ajouteCarteGagne : ajoute la carte gagne dans la liste des cartes gagnees
+
 //comparePairMot : Prend juste 2 mots et fait les tests
 
 //canceled : Teste si la liste sans identical et invalid clues est vide. Si oui replace la carte dans le paquet et va a la endPhase
@@ -72,7 +74,6 @@ function choisirCartes(liste, nombre) {
 let cartes_en_jeu = choisirCartes(cartes, 13);
 let cartes_gagne = [];
 let joueurs = ["J1", "J2", "J3", "J4", "J5"];
-
 
 function choisirJoueur(liste){
     return liste[Math.floor(Math.random() * liste.length)];
@@ -150,4 +151,28 @@ function canceled(words) {
     }
     return false;
     
+}
+
+function guess(indices_valides, mot_a_trouver){
+    for(let i = 0; i < indices_valides.length; i++){
+        console.log(indices_valides[i]);
+    }
+    let mot = prompt("Saisir la proposition");
+    if(mot_a_trouver == mot){
+        return true;
+    }
+    return false;
+
+}
+
+function ajouteCarteGagne(carte,liste){
+    liste.push(carte);
+}
+
+function testDernierTour(cartes,cartes_gain){
+    if(cartes.length == 1){
+        if(cartes_gain.length != 0){
+            cartes_gain.splice(index, 0);
+        }
+    }
 }
