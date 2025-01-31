@@ -2,6 +2,7 @@
 //joueurs : Liste de 5 joueurs
 //score : int
 //cartes_en_jeu : Liste de 13 elements qui sont des listes de 5 strings
+
 //cartes_gagne : Liste de cartes bien devinées  qui sont des listes de 5 strings
 
 //choisirCartes : Choisit 13 cartes parmi les 110
