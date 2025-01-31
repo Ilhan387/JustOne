@@ -63,18 +63,11 @@ const motsFrancais = [
     "place", "statue", "fontaine", "pont", "gare"
 ];
 
-const cartes = Array.from({ length: 150 }, () =>
-    Array.from({ length: 5 }, () => motsFrancais[Math.floor(Math.random() * motsFrancais.length)])
-)
 
 function choisirCartes(liste, nombre) {
     return liste.sort(() => Math.random() - 0.5).slice(0, nombre);
 }
 
-
-let cartes_en_jeu = choisirCartes(cartes, 13);
-let cartes_gagne = [];
-let joueurs = ["J1", "J2", "J3", "J4", "J5"];
 
 function choisirJoueur(liste){
     return liste[Math.floor(Math.random() * liste.length)];
@@ -99,8 +92,6 @@ function changerMot(liste,mot){
     }
 }
 
-let motsSaisies = [] ; 
-
 //fait saisir une seul personne le mot 
 function saisirMot(index){
     let word = prompt(`Entrez mot pour faire deviner le joueur:`);
@@ -116,7 +107,8 @@ function saisirMotToutLeMonde(){
         motsSaisies[i]= word;
     }
     //for testing purposes
-console.log("Your words:", motsSaisies);
+    console.log("Your words:", motsSaisies);
+    return motsSaisies;
 }
 
 // returns 1 if they are identical and 0 if they are different
@@ -166,14 +158,21 @@ function guess(indices_valides, mot_a_trouver){
 
 }
 
-function ajouteCarteGagne(carte,liste){
+function ajouteCarte(carte,liste){
     liste.push(carte);
+}
+
+function supCarteEtAjoutePaquet(liste,paquet){
+    if(liste.length != 0){
+        carte = liste.shift();
+    }
+    ajouteCarte(carte,paquet);
 }
 
 function testDernierTour(cartes,cartes_gain){
     if(cartes.length == 1){
         if(cartes_gain.length != 0){
-            cartes_gain.splice(index, 0);
+            cartes_gain.pop();
         }
     }
 }
@@ -194,6 +193,36 @@ function finJeu(paquet){
     return false;
 }
 
-//test game
 
-//hello
+//Implementation logique du jeu
+
+const cartes = Array.from({ length: 150 }, () =>
+    Array.from({ length: 5 }, () => motsFrancais[Math.floor(Math.random() * motsFrancais.length)])
+)
+let cartes_en_jeu = choisirCartes(cartes, 13);
+let cartes_gagne = [];
+let joueurs = ["J1", "J2", "J3", "J4", "J5"];
+
+let joueur_devine = choisirJoueur(joueurs);
+
+while(finJeu(cartes_en_jeu) == false){
+    let carte_13 = choisirCartesJoueur(cartes_en_jeu);
+    let mot = choisirMot(carte_13);
+    console.log(`Mot a deviner : ${mot}`);
+    let motsSaisies = saisirMotToutLeMonde();
+    let motsSaisiesValides = compareMots(motsSaisies);
+    if(canceled(motsSaisiesValides)){
+        ajouteCarte(carte_13,cartes);
+    }
+    else{
+        if(guess(motsSaisiesValides, mot_a_trouver) == true){
+            ajouteCarte(carte_13,cartes_gagne);
+        }
+        else{
+            ajouteCarte(carte_13,cartes);
+            supCarteEtAjoutePaquet(cartes_en_jeu,paquet);
+        }
+    }
+
+
+}
