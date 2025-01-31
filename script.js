@@ -193,3 +193,5 @@ function finJeu(paquet){
     console.log("The game must go on! Next round");
     return false;
 }
+
+//test game
