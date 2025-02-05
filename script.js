@@ -102,6 +102,7 @@ function saisirMot(index){
 
 //faire saisir tout le monde les mots 
 function saisirMotToutLeMonde(){
+    let motsSaisies = [];
     for (let i = 0; i < 4; i++) {
         let word = prompt(`Entrez mot joueur ${i + 1}:`);
         motsSaisies[i]= word;
@@ -162,11 +163,12 @@ function ajouteCarte(carte,liste){
     liste.push(carte);
 }
 
-function supCarteEtAjoutePaquet(liste,paquet){
+function supCarteEtAjoutePaquet(liste,paquet,carte){
     if(liste.length != 0){
-        carte = liste.shift();
+        cartepaquet = liste.shift();
     }
     ajouteCarte(carte,paquet);
+    ajouteCarte(cartepaquet,paquet);
 }
 
 function testDernierTour(cartes,cartes_gain){
@@ -219,7 +221,6 @@ while(finJeu(cartes_en_jeu) == false){
             ajouteCarte(carte_13,cartes_gagne);
         }
         else{
-            ajouteCarte(carte_13,cartes);
             supCarteEtAjoutePaquet(cartes_en_jeu,paquet);
         }
     }
