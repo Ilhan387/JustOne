@@ -205,7 +205,7 @@ function finJeu(paquet){
 const cartes = Array.from({ length: 150 }, () =>
     Array.from({ length: 5 }, () => motsFrancais[Math.floor(Math.random() * motsFrancais.length)])
 )
-let cartes_en_jeu = choisirCartes(cartes, 2);
+let cartes_en_jeu = choisirCartes(cartes, 13);
 let cartes_gagne = [];
 let joueurs = ["J1", "J2", "J3", "J4", "J5"];
 
@@ -222,12 +222,13 @@ while(finJeu(cartes_en_jeu) == false){
         ajouteCarte(carte_13,cartes);
     }
     else{
-        if(guess(motsSaisiesValides, mot) == 2){
+        let resultat_guess = guess(motsSaisiesValides, mot);
+        if(resultat_guess == 2){
             ajouteCarte(carte_13,cartes_gagne);
             score++;
             console.log(`Bravo,le score augmente de : ${score}`);
         }
-        else if(guess(motsSaisiesValides, mot) == 0){
+        else if(resultat_guess == 0){
             supCarteEtAjoutePaquet(cartes_en_jeu,cartes);
             console.log(`Mince,le score ne change pas : ${score}`);
         }
@@ -236,6 +237,4 @@ while(finJeu(cartes_en_jeu) == false){
             ajouteCarte(carte_13,cartes);
         }
     }
-
-
 }
