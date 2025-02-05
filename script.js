@@ -152,10 +152,13 @@ function guess(indices_valides, mot_a_trouver){
         console.log(indices_valides[i]);
     }
     let mot = prompt("Saisir la proposition");
-    if(mot_a_trouver == mot){
-        return true;
+    if(mot == ""){
+        return 1;
     }
-    return false;
+    else if(mot_a_trouver == mot){
+        return 2;
+    }
+    return 0;
 
 }
 
@@ -166,9 +169,9 @@ function ajouteCarte(carte,liste){
 function supCarteEtAjoutePaquet(liste,paquet,carte){
     if(liste.length != 0){
         cartepaquet = liste.shift();
+        ajouteCarte(cartepaquet,paquet);
     }
     ajouteCarte(carte,paquet);
-    ajouteCarte(cartepaquet,paquet);
 }
 
 function testDernierTour(cartes,cartes_gain){
@@ -189,6 +192,7 @@ function choisirJoueurTourSuivant(currentJouer){
 function finJeu(paquet){
     if (paquet.length === 0){
         console.log("Vous avez terminé le jeu");
+        console.log(`Score final : ${score}`);
         return true;
     }
     console.log("The game must go on! Next round");
@@ -201,11 +205,12 @@ function finJeu(paquet){
 const cartes = Array.from({ length: 150 }, () =>
     Array.from({ length: 5 }, () => motsFrancais[Math.floor(Math.random() * motsFrancais.length)])
 )
-let cartes_en_jeu = choisirCartes(cartes, 13);
+let cartes_en_jeu = choisirCartes(cartes, 2);
 let cartes_gagne = [];
 let joueurs = ["J1", "J2", "J3", "J4", "J5"];
 
 let joueur_devine = choisirJoueur(joueurs);
+let score = 0;
 
 while(finJeu(cartes_en_jeu) == false){
     let carte_13 = choisirCartesJoueur(cartes_en_jeu);
@@ -217,11 +222,18 @@ while(finJeu(cartes_en_jeu) == false){
         ajouteCarte(carte_13,cartes);
     }
     else{
-        if(guess(motsSaisiesValides, mot_a_trouver) == true){
+        if(guess(motsSaisiesValides, mot) == 2){
             ajouteCarte(carte_13,cartes_gagne);
+            score++;
+            console.log(`Bravo,le score augmente de : ${score}`);
+        }
+        else if(guess(motsSaisiesValides, mot) == 0){
+            supCarteEtAjoutePaquet(cartes_en_jeu,cartes);
+            console.log(`Mince,le score ne change pas : ${score}`);
         }
         else{
-            supCarteEtAjoutePaquet(cartes_en_jeu,paquet);
+            console.log(`Pas de proposition`);
+            ajouteCarte(carte_13,cartes);
         }
     }
 
