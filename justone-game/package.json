@@ -1,0 +1,13 @@
+{
+  "name": "justone-game",
+  "version": "1.0.0",
+  "description": "A simple implementation of the game Just One in JavaScript",
+  "main": "justone_game.js",
+  "scripts": {
+    "start": "node justone_game.js"
+  },
+  "keywords": [],
+  "author": "Jana_Ilhan",
+  "license": "ISC"
+}
+
